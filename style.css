@@ -1,26 +1,9 @@
 #container{
-	width: 30vw;
-	height: 30vw;
+	width: 60vw;
+	height: 60vw;
 	border: 1px black solid;
 	margin: auto;
 	position: relative;
-	transform-origin: center;
+	
 }
 
-#big-circle{
-	border-radius: 50%;
-	background-color: black;
-
-	width: 2vw;
-	height: 2vw;
-	position: absolute;
-	transform-origin: center;
-}
-#small-circle{
-	border-radius: 50%;
-	background-color: black;
-
-	width: 1vw;
-	height: 1vw;
-	position: absolute;
-}
