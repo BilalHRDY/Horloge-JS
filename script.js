@@ -18,7 +18,7 @@ function createCircle(size){
 
 var listCircles = []; 
 var count=0;
-for (var i = 0; i < 12; i++) {    // Création des 60 cercles du cadran avec ce pattern : 1 grand pour 4 petits
+for (var i = 0; i < 12; i++) {    // Création des 60 cercles du cadran en suivant ce pattern : 1 grand pour 4 petits
 	listCircles[count] = createCircle(3);
 	listCircles[count+1] = createCircle(1);
 	listCircles[count+2]= createCircle(1);
@@ -85,17 +85,19 @@ var secondsCurrent = d.getSeconds();
 var minutesCurrent = d.getMinutes();
 var hoursCurrent = d.getHours();
 
-var angleStepSec = 360/60; 	// L'angle qui va être appliqué à l'aiguille à chaque intervalle
-var angleStepHour = 360/720;
+var daySecondsCurrent= secondsCurrent + minutesCurrent*60 + hoursCurrent*3600; // Nombre de secondes écoulées depuis le début de la journée
 
-var positionNeedleSec = angleStepSec*secondsCurrent + 180; // On ajoute 180 degrés pour annuler le positionnement de l'aiguille par défaut à 6h
-var positionNeedleHour = (360/12)*hoursCurrent + angleStepHour*minutesCurrent + 180;
+var angleStepSec = 360/60; 	// L'angle qui va être ajouté à l'aiguille des secondes à chaque seconde;
+var angleStepHour = 360/43200; // L'angle qui va être ajouté à l'aiguille des heures à chaque seconde;
+
+var positionNeedleSec = angleStepSec*secondsCurrent + 180;      // Calcul de l'angle de l'aiguille par rapport à l'heure actuelle,
+var positionNeedleHour = angleStepHour*daySecondsCurrent + 180; // avec ajout des 180 degrés pour annuler le positionnement de l'aiguille par défaut à 6h
 
 function setNeedlePosition(needle, angle){        
 	needle.style.setProperty("--angle", `${angle}deg`);
 }
 
-setNeedlePosition(needleSec,positionNeedleSec);   // On initialise le placement des aiguilles sur le cadran avec l'heure actuelle
+setNeedlePosition(needleSec,positionNeedleSec);   
 setNeedlePosition(needleHour,positionNeedleHour);
 
 let activeNeedleSec = setInterval(function(){
@@ -108,8 +110,8 @@ let activeNeedleHour = setInterval(function(){
  	
     needleHour.style.setProperty("--angle", `${positionNeedleHour}deg`);
     positionNeedleHour += angleStepHour;
-	}, 60000); // 60000ms = 1 minute 
+	}, 1000); 
 
 
-
+var i = 3;
 
