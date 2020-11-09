@@ -7,9 +7,9 @@ let log = console.log;
 function createNumber(num){
 	var numberDiv = document.createElement('div');
 	numberDiv.style['position'] = 'absolute';
-	numberDiv.style['font-size'] = '5vw';
+	numberDiv.style['font-size'] = '4vw';
 	numberDiv.style['transform'] = 'translate(-50%, -50%)';
-	numberDiv.style['transition'] = 'opacity 2s ease-out';
+	numberDiv.style['transition'] = 'opacity 2s cubic-bezier(0.4, 0, 1, 1)';
 	numberDiv.style['opacity'] = '0';
 	numberDiv.textContent = num;
 
@@ -47,8 +47,11 @@ let setOpacityNum = setTimeout(function(){
 
 // Configuration des deux aiguilles:
 
-var needleSec = document.getElementById('needleSec');
-var needleHour = document.getElementById('needleHour');
+var needleSec = document.querySelector('.needleSec');
+var needleHour = document.querySelector('.needleHour');
+
+var test = document.getElementsByClassName('test');
+
 
 var d = new Date();
 var secondsCurrent = d.getSeconds();
@@ -90,8 +93,7 @@ let setOpacityNeedle = setTimeout(function(){
 
 
 
-// Animation au chargement:
-// Création et positionnement des cercles sur le cadran:
+// Création, positionnement et transition des cercles sur le cadran:
 
 function randomNumber(min, max) {
   return (Math.random() * (max - min) + min);
@@ -114,7 +116,7 @@ function createCircle(size){
 
 var listCircles = []; 
 var count=0;
-for (var i = 0; i < 12; i++) {    
+for (var i = 0; i < 12; i++) {               // Création des 60 cercles du cadran en suivant ce pattern : 1 grand pour 4 petits
 	listCircles[count] = createCircle(3);
 	listCircles[count+1] = createCircle(1);
 	listCircles[count+2]= createCircle(1);
@@ -130,14 +132,14 @@ for (var i = 0; i < 12; i++) {
 var listeCoordX = [];
 var listeCoordY = [];
 
-function positionToCircle(i, angle){
+function addCoordList(i, angle){
 	listeCoordX[i]= 50 + (45*Math.cos(angle));
 	listeCoordY[i]= 50 + (45*Math.sin(angle));
 	};
 
 for (var i = 0; i < listCircles.length; i++) {
 	let angle = ((Math.PI*2) /listCircles.length) * i ;
-	positionToCircle(i, angle);
+	addCoordList(i, angle);
 	};
 
 let setPosition = setTimeout(function(){
@@ -147,5 +149,16 @@ let setPosition = setTimeout(function(){
 		listCircles[i].style['top'] =`${listeCoordY[i]}%`;
 		}
 	}, 100);
+
+// Transition du conteneur:
+
+let setOpacitycontainer = setTimeout(function(){
+		
+		container.style['boxShadow'] ="5px 5px 25px #000" ;
+	}, 3000);
+
+
+
+
 
 
