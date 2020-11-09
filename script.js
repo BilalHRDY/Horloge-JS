@@ -12,33 +12,10 @@ function createCircle(size){
 	circle.style['backgroundColor']= 'black';
 	circle.style['position'] = 'absolute';
 	circle.style['transform'] = 'translate(-50%, -50%)';
+
 	
 	return circle;
 	};
-
-var listCircles = []; 
-var count=0;
-for (var i = 0; i < 12; i++) {    // Création des 60 cercles du cadran en suivant ce pattern : 1 grand pour 4 petits
-	listCircles[count] = createCircle(3);
-	listCircles[count+1] = createCircle(1);
-	listCircles[count+2]= createCircle(1);
-	listCircles[count+3] = createCircle(1);
-	listCircles[count+4] = createCircle(1);
-
-	container.append(listCircles[count],listCircles[count+1],listCircles[count+2],
-		listCircles[count+3],listCircles[count+4]);
-	count+=5;
-	};
-
-function positionCircle(circle, angle){
-	circle.style['left']= 50 + (45*Math.cos(angle)) + '%';
-	circle.style['top']= 50 + (45*Math.sin(angle)) + '%';
-};
-
-for (var i = 0; i < listCircles.length; i++) {
-	let angle = ((Math.PI*2) / listCircles.length) * i ;
-	positionCircle(listCircles[i], angle);
-};
 
 
 // Création et positionnement des nombres sur le cadran:
@@ -113,5 +90,60 @@ let activeNeedleHour = setInterval(function(){
 	}, 1000); 
 
 
-var i = 3;
+
+
+// Animation au chargement:
+
+var listCircles2 = []; 
+var count=0;
+for (var i = 0; i < 12; i++) {    
+	listCircles2[count] = createCircle(3);
+	listCircles2[count+1] = createCircle(1);
+	listCircles2[count+2]= createCircle(1);
+	listCircles2[count+3] = createCircle(1);
+	listCircles2[count+4] = createCircle(1);
+
+	container.append(listCircles2[count],listCircles2[count+1],listCircles2[count+2],
+		listCircles2[count+3],listCircles2[count+4]);
+	count+=5;
+	};
+
+
+function randomNumber(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+
+
+function positionCircleStart(circle){
+	circle.style['left']= `${randomNumber(-100, 100)}%`;
+	circle.style['top']=  `${randomNumber(-100, 100)}%`;
+};
+
+for (var i = 0; i < listCircles2.length; i++) {
+	listCircles2[i].style['transition'] = 'all 2s ease-out';
+	positionCircleStart(listCircles2[i]);
+};
+
+var listeCoordX = [];
+var listeCoordY = [];
+
+function positionListe(i, angle){
+	listeCoordX[i]= 50 + (45*Math.cos(angle));
+	listeCoordY[i]= 50 + (45*Math.sin(angle));
+	};
+
+for (var i = 0; i < 60; i++) {
+	let angle = ((Math.PI*2) / 60) * i ;
+	positionListe(i, angle);
+	};
+
+let move = setTimeout(function(){
+
+	for (var i = 0; i < 60; i++) {
+	listCircles2[i].style['left'] =`${listeCoordX[i]}%` ;
+	listCircles2[i].style['top'] =`${listeCoordY[i]}%`;
+	}
+}, 100);
+
 
