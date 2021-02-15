@@ -1,37 +1,45 @@
-:root {
+variables{
   --angle;
 }
 
+body{
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
 #container{
-	width: 50vw;
-	height: 50vw;
+	width: 44vw;
+	height: 44vw;
 	border-radius: 50%;
 	margin: auto;
 	position: relative;
+	transition: box-shadow 2s cubic-bezier(0.4, 0, 1, 1) ;
+	box-shadow: 0;
 }
 
-#needleSec{
+.needle{
+	background-color: black;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	opacity: 0;
+	border: 1px solid black;
+	border-radius: 40% 40% 50% 50% ;
+	transform-origin: top;
+	transform: translateX(-50%) rotate(var(--angle));
+  	transition: opacity 2s cubic-bezier(0.4, 0, 1, 1);
+
+}
+
+.needleSec{
 	width: 0.50vw;
-	height: 21vw;
-	background-color: black;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	border: 1px solid black;
-	border-radius: 50%;
-	transform-origin: top;
-	transform: translateX(-50%) rotate(var(--angle));
-}
+	height: 16vw;
 
-#needleHour{
+}
+.needleHour{
 	width: 1vw;
-	height: 17vw;
-	background-color: black;
-	position: absolute;
-	left: 50%;
-	top: 50%;
-	border: 1px solid black;
-	border-radius: 50%;
-	transform-origin: top;
-	transform: translateX(-50%) rotate(var(--angle));
+	height:11vw;
 }
